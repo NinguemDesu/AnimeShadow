@@ -1,0 +1,60 @@
+-- Configurações
+local farmRecursos = true
+local venderRecursos = true
+local farmXP = true
+local protecao = true
+
+-- Variáveis
+local game = Game
+
+print("Script iniciado!")
+
+if game then
+print("Jogo detectado!")
+-- Continua o script
+local jogador = game.Players.LocalPlayer
+local personagem = jogador.Character
+local inventario = jogador.Inventory
+
+-- Funções
+local function farmarRecursos()
+-- Código para farmar recursos
+game:GetService("ReplicatedStorage").RemoteEvents.Farm:FireServer()
+end
+
+local function venderRecursos()
+-- Código para vender recursos
+game:GetService("ReplicatedStorage").RemoteEvents.Sell:FireServer()
+end
+
+-- Lista de nomes aleatórios
+local nomes = {"Jogador", "Player", "Usuário", "Avatar", "Guerrero", "Lutador"}
+
+-- Loop principal
+game:GetService("RunService").RenderStepped:Connect(function()
+print("Loop principal executado!")
+if farmRecursos then
+farmarRecursos()
+end
+if farmXP then
+-- Código para farmar XP
+game:GetService("ReplicatedStorage").RemoteEvents.XPFarm:FireServer()
+end
+if venderRecursos then
+venderRecursos()
+end
+-- Verifica inventário
+if #inventario.Items >= inventario.MaxSize then
+venderRecursos()
+end
+-- Proteção contra banimento
+if protecao then
+-- Código para evitar detecção
+local nomeAntigo = jogador.Name
+local nomeAleatorio = nomes[math.random(1, #nomes)] .. "_" .. math.random(1, 100)
+jogador.Name = nomeAleatorio
+game:GetService('RunService').Stepped:Wait(math.random(10, 30))
+jogador.Name = nomeAntigo
+end
+end)
+end
