@@ -11,6 +11,7 @@ print("Script iniciado!")
 
 if game then
 print("Jogo detectado!")
+
 -- Continua o script
 local jogador = game.Players.LocalPlayer
 local personagem = jogador.Character
@@ -57,4 +58,5 @@ game:GetService('RunService').Stepped:Wait(math.random(10, 30))
 jogador.Name = nomeAntigo
 end
 end)
+
 end
