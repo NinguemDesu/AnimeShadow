@@ -5,9 +5,7 @@ local farmXP = true
 local protecao = true
 
 -- Variáveis
-local game = Game
-
-print("Script iniciado!")
+local game = game or Game
 
 if game then
 print("Jogo detectado!")
@@ -59,4 +57,6 @@ jogador.Name = nomeAntigo
 end
 end)
 
+else
+print("Jogo não detectado!")
 end
